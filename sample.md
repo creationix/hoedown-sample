@@ -56,3 +56,14 @@ $$
     \end{array} \right)
 \end{align*}
 $$
+
+
+Does it work with "smart quotes?"
+
+
+Isn't it nice?
+
+First Header  | Second Header
+------------- | -------------
+Content Cell  | Content Cell
+Content Cell  | Content Cell

@@ -18,19 +18,22 @@ local markdown = bundle.readfile("sample.md")
 
 hd.hoedown_document_render(document, html, markdown, #markdown);
 
-local string = ffi.string(html.data, html.size)
+local output = hd.hoedown_buffer_new(16)
+
+hd.hoedown_html_smartypants(output, html.data, html.size)
+
+local string = ffi.string(output.data, output.size)
 print[[
 <meta charset="utf8">
-]]
-print(string)
-print[[
-<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/styles/tomorrow-night-bright.min.css">
+<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/languages/lua.min.js"></script>
 <script>hljs.initHighlightingOnLoad()</script>
 ]]
+print(string)
 
 hd.hoedown_buffer_free(html)
+hd.hoedown_buffer_free(output)
 hd.hoedown_document_free(document)
 hd.hoedown_html_renderer_free(renderer)
